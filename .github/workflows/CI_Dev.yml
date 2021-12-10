@@ -3,32 +3,21 @@ name: CI for UnitTest
 on:
   push:
     branches: [main]
-    
+
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-    - uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        
-    - name: Install Libraries
-      run: |
-        pip install flake8 pytest pytest-cov coverage pytest-mock
-      
-    - name: Checkout Own Repo
-      uses: actions/checkout@v2
-      with: 
-        repository: np-devops-team1/DevOps_Main
-        
-    - name: Checkout Test Script
-      uses: actions/checkout@v2
-      with:
-        repository: np-devops-team1/DevOps_Dev_UnitTest
-        path: test_cases
-        token: ${{ secrets.DEV_REMOTE }}
-        
-    - name: Begin Pytest
-      run: |
-        mv ./test_cases/*.* ./
-        coverage run -m pytest
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Setup Python 3.8
+        with:
+          python-version: 3.8
+      - name: Install Dependcy
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Test with pytest
+        run: pytest -vv
