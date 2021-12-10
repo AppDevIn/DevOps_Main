@@ -25,12 +25,10 @@
 # Imports
 
 # function for main menu
-def MenuSelection(option):
+def MenuSelection():
     while True:
         FirstMenu()
         option = (int)(input("Your choice? "))
-        MenuSelection(option)
-
         if option == 1:
             StartGameFunc()
         elif option == 2:
