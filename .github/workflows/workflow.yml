@@ -2,6 +2,8 @@ name: Python CI/CD
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
   build:
     name: Python Program Quality Control
